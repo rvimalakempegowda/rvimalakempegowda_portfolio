@@ -1,78 +1,81 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { HiOutlineMail, HiOutlineLocationMarker } from 'react-icons/hi'
+import { HiArrowLongRight } from 'react-icons/hi2'
 import { personal } from '../data/portfolio'
 import { SectionLabel } from './About'
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-24 bg-white px-6">
-      <div className="max-w-5xl mx-auto">
+    <section id="contact" className="py-28 bg-[#0c0c0c] px-6">
+      <div className="max-w-6xl mx-auto">
         <SectionLabel>Contact</SectionLabel>
-        <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-4">Get In Touch</h2>
-        <p className="text-neutral-500 text-base max-w-lg mb-12">
+        <h2 className="font-display text-4xl md:text-5xl font-bold text-cream mb-6">Let's Talk</h2>
+        <p className="text-cream-muted text-base max-w-lg mb-16 leading-relaxed">
           Open to new roles, collaborations, and conversations about data engineering.
-          Feel free to reach out — I typically respond within a day.
+          I typically respond within a day.
         </p>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-px bg-white/5">
           {/* Links */}
-          <div className="space-y-4">
+          <div className="bg-[#0c0c0c] p-10 space-y-6">
             {[
-              { icon: HiOutlineMail,           label: 'Email',    value: personal.email,                           href: `mailto:${personal.email}` },
-              { icon: FaLinkedin,              label: 'LinkedIn', value: 'revanth-gowda-vimala-kempegowda',        href: personal.linkedin },
-              { icon: FaGithub,               label: 'GitHub',   value: 'github.com/rvimalakempegowda',           href: personal.github },
-              { icon: HiOutlineLocationMarker, label: 'Location', value: personal.location,                        href: null },
-            ].map(({ icon: Icon, label, value, href }) => (
-              <div key={label} className="flex items-center gap-4 p-4 rounded-xl border border-neutral-100 bg-neutral-50 hover:border-accent/20 hover:bg-white transition-all group">
-                <div className="p-2.5 rounded-lg bg-accent-light text-accent shrink-0">
-                  <Icon className="text-base" />
+              { Icon: HiOutlineMail,           label: 'Email',    value: personal.email,                    href: `mailto:${personal.email}` },
+              { Icon: FaLinkedin,              label: 'LinkedIn', value: 'revanth-gowda-vimala-kempegowda', href: personal.linkedin },
+              { Icon: FaGithub,               label: 'GitHub',   value: 'rvimalakempegowda',               href: personal.github },
+              { Icon: HiOutlineLocationMarker, label: 'Location', value: personal.location,                 href: null },
+            ].map(({ Icon, label, value, href }) => (
+              <div key={label} className="group flex items-center gap-4">
+                <div className="w-10 h-10 border border-white/7 flex items-center justify-center text-cream-faint group-hover:border-gold/40 group-hover:text-gold transition-all shrink-0">
+                  <Icon size={15} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-neutral-400 font-medium">{label}</p>
+                  <p className="text-xs text-cream-faint uppercase tracking-widest mb-0.5">{label}</p>
                   {href ? (
                     <a href={href}
                        target={href.startsWith('http') ? '_blank' : undefined}
                        rel="noopener noreferrer"
-                       className="text-sm font-medium text-neutral-700 hover:text-accent transition-colors truncate block">
+                       className="text-sm text-cream-muted hover:text-gold transition-colors truncate block">
                       {value}
                     </a>
                   ) : (
-                    <span className="text-sm font-medium text-neutral-700">{value}</span>
+                    <span className="text-sm text-cream-muted">{value}</span>
                   )}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* CTA card */}
-          <div className="bg-accent rounded-2xl p-8 text-white flex flex-col justify-between">
+          {/* CTA */}
+          <div className="bg-surface p-10 flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-bold mb-2">Let's work together</h3>
-              <p className="text-blue-100 text-sm leading-relaxed">
-                Whether you need a data engineer to build pipelines, optimize cloud infrastructure,
-                or architect analytics solutions — I'd love to help.
+              <h3 className="font-display text-2xl font-bold text-cream mb-4">Ready to build something?</h3>
+              <p className="text-cream-muted text-sm leading-relaxed">
+                Whether you need scalable pipelines, cloud infrastructure, or
+                AI-driven analytics — let's make it happen.
               </p>
             </div>
-            <div className="mt-8 flex flex-col gap-3">
+            <div className="mt-10 space-y-3">
               <a href={`mailto:${personal.email}`}
-                 className="block text-center bg-white text-accent font-semibold text-sm py-3 rounded-xl hover:bg-blue-50 transition-colors">
+                 className="group flex items-center justify-between w-full bg-gold text-black font-semibold text-sm px-6 py-4 hover:bg-gold-light transition-colors">
                 Send an Email
+                <HiArrowLongRight className="group-hover:translate-x-1 transition-transform" />
               </a>
               <a href={personal.linkedin} target="_blank" rel="noopener noreferrer"
-                 className="block text-center border border-white/30 text-white font-medium text-sm py-3 rounded-xl hover:bg-white/10 transition-colors">
+                 className="flex items-center justify-between w-full border border-white/7 text-cream-muted text-sm px-6 py-4 hover:border-gold/30 hover:text-cream transition-all">
                 Connect on LinkedIn
+                <HiArrowLongRight size={16} />
               </a>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="mt-20 pt-8 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-neutral-400">
-          <span>© {new Date().getFullYear()} Revanth Gowda Vimala Kempegowda</span>
-          <div className="flex items-center gap-5">
-            <a href={personal.github}   target="_blank" rel="noopener noreferrer" className="hover:text-neutral-700 transition-colors"><FaGithub /></a>
-            <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors"><FaLinkedin /></a>
-            <a href={`mailto:${personal.email}`} className="hover:text-accent transition-colors"><HiOutlineMail /></a>
+        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-xs text-cream-faint">© {new Date().getFullYear()} Revanth Gowda Vimala Kempegowda</span>
+          <div className="flex items-center gap-5 text-cream-faint">
+            <a href={personal.github}   target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors"><FaGithub /></a>
+            <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors"><FaLinkedin /></a>
+            <a href={`mailto:${personal.email}`} className="hover:text-gold transition-colors"><HiOutlineMail /></a>
           </div>
         </div>
       </div>

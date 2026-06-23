@@ -3,38 +3,38 @@ import { SectionLabel } from './About'
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 bg-white px-6">
-      <div className="max-w-5xl mx-auto">
+    <section id="experience" className="py-28 bg-[#0c0c0c] px-6">
+      <div className="max-w-6xl mx-auto">
         <SectionLabel>Career</SectionLabel>
-        <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-12">Work Experience</h2>
+        <h2 className="font-display text-4xl md:text-5xl font-bold text-cream mb-16">Experience</h2>
 
-        <div className="space-y-6">
+        <div className="space-y-px">
           {experience.map((job, i) => (
             <div key={i}
-                 className="group bg-neutral-50 hover:bg-white border border-neutral-200 hover:border-accent/30 hover:shadow-md rounded-2xl p-7 transition-all duration-200">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                 className="group border border-white/7 bg-surface p-8 hover:border-gold/25 hover:bg-surface-2 transition-all duration-300">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-5">
                 <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="font-semibold text-lg text-neutral-900">{job.role}</h3>
+                  <div className="flex items-center gap-3 flex-wrap mb-1">
+                    <h3 className="font-display text-xl font-semibold text-cream group-hover:text-gold transition-colors">{job.role}</h3>
                     {job.current && (
-                      <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200">
+                      <span className="text-[10px] font-medium px-2 py-0.5 border border-gold/40 text-gold tracking-widest uppercase">
                         Current
                       </span>
                     )}
                   </div>
-                  <p className="text-accent font-medium text-sm mt-0.5">{job.company}</p>
+                  <p className="text-gold/80 font-medium text-sm">{job.company}</p>
                 </div>
-                <div className="text-right shrink-0">
-                  <p className="text-sm text-neutral-500">{job.period}</p>
-                  <p className="text-xs text-neutral-400 mt-0.5">{job.location}</p>
+                <div className="shrink-0 text-right">
+                  <p className="text-cream-muted text-sm">{job.period}</p>
+                  <p className="text-cream-faint text-xs mt-0.5">{job.location}</p>
                 </div>
               </div>
 
-              <p className="text-neutral-500 text-sm leading-relaxed mb-4">{job.description}</p>
+              <p className="text-cream-muted text-sm leading-relaxed mb-5">{job.description}</p>
 
               <div className="flex flex-wrap gap-2">
                 {job.tags.map(t => (
-                  <span key={t} className="text-xs font-medium px-2.5 py-1 rounded-md bg-accent-light text-accent">
+                  <span key={t} className="text-xs text-cream-muted/60 border border-white/7 px-2.5 py-1 group-hover:border-gold/20 transition-colors">
                     {t}
                   </span>
                 ))}

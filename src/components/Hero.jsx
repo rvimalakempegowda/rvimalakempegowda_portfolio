@@ -3,7 +3,8 @@ import { HiOutlineMail, HiOutlineLocationMarker } from 'react-icons/hi'
 import { HiArrowLongRight, HiArrowLongDown } from 'react-icons/hi2'
 import { personal } from '../data/portfolio'
 
-// To show your photo: replace `null` below with: import photo from '../assets/Revanth.JPG'
+// Photo: add Revanth.JPG to src/assets/, then replace the line below with:
+// import photo from '../assets/Revanth.JPG'
 const photo = null
 
 export default function Hero() {

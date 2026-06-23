@@ -7,6 +7,7 @@ import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Publications from './components/Publications'
 import Contact from './components/Contact'
+import ScrollToTop from './components/ScrollToTop'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Publications />
         <Contact />
       </main>
+      <ScrollToTop />
     </div>
   )
 }

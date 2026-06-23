@@ -4,7 +4,7 @@ import { HiArrowLongRight } from 'react-icons/hi2'
 import { personal } from '../data/portfolio'
 
 // Add your photo: import photo from '../assets/Revanth.JPG'
-const photo = null
+import photo from '../assets/Revanth.JPG'
 
 export default function Hero() {
   return (

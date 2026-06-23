@@ -1,76 +1,86 @@
-import { ExternalLink } from 'lucide-react'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { FiExternalLink, FiArrowRight } from 'react-icons/fi'
+import { FaGithub } from 'react-icons/fa'
+import { SectionWrapper, SectionHeader, Tag } from './SectionWrapper'
 import { projects } from '../data/portfolio'
-import { SectionHeader } from './About'
+
+function ProjectCard({ project, index, inView }) {
+  const isFeatured = project.featured
+  return (
+    <motion.div
+      className={`group relative border border-white/10 bg-white/[0.015] p-6 hover:border-green transition-all duration-300 flex flex-col`}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.1 }}
+      whileHover={{ y: -4, boxShadow: '6px 6px 0px #10B981' }}
+    >
+      {/* Top bar */}
+      <div className="flex items-start justify-between mb-5">
+        <div className="flex items-center gap-3">
+          <div className="w-3 h-3 bg-green group-hover:bg-red transition-colors" />
+          <div className="w-3 h-3 border border-white/20" />
+          <div className="w-3 h-3 border border-white/20" />
+        </div>
+        {project.link && (
+          <a href={project.link} target="_blank" rel="noopener noreferrer"
+             className="text-white/20 hover:text-green transition-colors">
+            <FiExternalLink size={16} />
+          </a>
+        )}
+      </div>
+
+      <h3 className="font-bold text-lg text-white mb-3 group-hover:text-green transition-colors leading-snug">
+        {project.title}
+      </h3>
+      <p className="font-mono text-xs text-white/40 leading-relaxed flex-grow mb-5">{project.description}</p>
+
+      <div className="flex flex-wrap gap-1.5 mt-auto">
+        {project.tags.slice(0, 5).map(t => <Tag key={t}>{t}</Tag>)}
+        {project.tags.length > 5 && (
+          <span className="font-mono text-xs text-white/20 px-2 py-1">+{project.tags.length - 5}</span>
+        )}
+      </div>
+    </motion.div>
+  )
+}
 
 export default function Projects() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
   const featured = projects.filter(p => p.featured)
   const others = projects.filter(p => !p.featured)
 
   return (
-    <section id="projects" className="bg-slate-900 section-padding">
-      <div className="max-w-6xl mx-auto">
-        <SectionHeader label="Portfolio" title="Featured Projects" />
+    <SectionWrapper id="projects" className="bg-black geo-bg py-24 px-6">
+      <div className="max-w-7xl mx-auto" ref={ref}>
+        <SectionHeader number="03." label="Portfolio" title="Featured Projects" />
 
-        {/* Featured projects */}
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.map((project, i) => (
-            <ProjectCard key={i} project={project} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 mb-px">
+          {featured.map((p, i) => (
+            <div key={i} className="bg-black p-0.5">
+              <ProjectCard project={p} index={i} inView={inView} />
+            </div>
           ))}
         </div>
 
-        {/* Other projects */}
         {others.length > 0 && (
           <>
-            <h3 className="text-center text-slate-400 text-sm font-medium uppercase tracking-widest mt-16 mb-8">
-              Other Noteworthy Projects
-            </h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              {others.map((project, i) => (
-                <ProjectCard key={i} project={project} compact />
+            <div className="flex items-center gap-4 my-12">
+              <div className="h-px flex-1 bg-white/5" />
+              <span className="font-mono text-xs text-white/20 uppercase tracking-widest">Other Projects</span>
+              <div className="h-px flex-1 bg-white/5" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-px bg-white/5">
+              {others.map((p, i) => (
+                <div key={i} className="bg-black p-0.5">
+                  <ProjectCard project={p} index={featured.length + i} inView={inView} />
+                </div>
               ))}
             </div>
           </>
         )}
       </div>
-    </section>
-  )
-}
-
-function ProjectCard({ project, compact = false }) {
-  return (
-    <div className={`group flex flex-col p-6 rounded-2xl bg-slate-800/60 border border-slate-700 hover:border-primary-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/10 card-hover ${compact ? '' : 'h-full'}`}>
-      <div className="flex items-start justify-between mb-4">
-        <div className="p-2 rounded-lg bg-primary-500/10 group-hover:bg-primary-500/20 transition-colors">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary-400">
-            <path d="M4 7h16M4 12h16M4 17h10" />
-          </svg>
-        </div>
-        <div className="flex gap-3">
-          {project.link && (
-            <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-colors">
-              <ExternalLink size={16} />
-            </a>
-          )}
-        </div>
-      </div>
-
-      <h3 className="text-white font-bold text-lg mb-3 group-hover:text-primary-300 transition-colors leading-snug">
-        {project.title}
-      </h3>
-      <p className="text-slate-400 text-sm leading-relaxed flex-grow mb-5">{project.description}</p>
-
-      <div className="flex flex-wrap gap-1.5 mt-auto">
-        {project.tags.slice(0, 5).map(tag => (
-          <span key={tag} className="px-2 py-0.5 text-xs rounded-md bg-slate-900/80 border border-slate-700 text-slate-400">
-            {tag}
-          </span>
-        ))}
-        {project.tags.length > 5 && (
-          <span className="px-2 py-0.5 text-xs rounded-md bg-slate-900/80 border border-slate-700 text-slate-500">
-            +{project.tags.length - 5}
-          </span>
-        )}
-      </div>
-    </div>
+    </SectionWrapper>
   )
 }

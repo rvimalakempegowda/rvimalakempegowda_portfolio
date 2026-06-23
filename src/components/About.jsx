@@ -1,92 +1,131 @@
-import { GraduationCap, Award } from 'lucide-react'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { FiAward, FiBook } from 'react-icons/fi'
+import { SectionWrapper, SectionHeader, Tag } from './SectionWrapper'
 import { personal, education, certifications } from '../data/portfolio'
 
 export default function About() {
-  return (
-    <section id="about" className="bg-slate-900 section-padding">
-      <div className="max-w-6xl mx-auto">
-        <SectionHeader label="About Me" title="Background & Education" />
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
 
-        <div className="grid lg:grid-cols-2 gap-12 mt-12">
+  const stats = [
+    { value: '3+', label: 'Years Experience' },
+    { value: '4',  label: 'MS Certifications' },
+    { value: '5',  label: 'Cloud Projects' },
+    { value: '1',  label: 'IEEE Publication' },
+  ]
+
+  return (
+    <SectionWrapper id="about" className="bg-black geo-bg py-24 px-6">
+      <div className="max-w-7xl mx-auto" ref={ref}>
+        <SectionHeader number="01." label="About" title="Who I Am" />
+
+        <div className="grid lg:grid-cols-2 gap-16">
           {/* Bio */}
           <div>
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-cyan-500 flex items-center justify-center text-white text-2xl font-bold mb-6 shadow-lg">
-              {personal.initials}
-            </div>
-            <h3 className="text-xl font-semibold text-white mb-4">Hi, I'm Revanth</h3>
-            <p className="text-slate-400 leading-relaxed mb-6">{personal.bio}</p>
+            <motion.p
+              className="text-white/60 font-mono text-sm leading-relaxed mb-8"
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.2 }}
+            >
+              {personal.bio}
+            </motion.p>
 
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: 'Experience', value: '3+ Years' },
-                { label: 'Cloud Certifications', value: '4 Microsoft' },
-                { label: 'Publications', value: '1 IEEE Paper' },
-                { label: 'Location', value: 'Frisco, TX' },
-              ].map(stat => (
-                <div key={stat.label} className="p-4 rounded-xl bg-slate-800/60 border border-slate-700">
-                  <div className="text-2xl font-bold text-gradient">{stat.value}</div>
-                  <div className="text-slate-500 text-sm mt-1">{stat.label}</div>
-                </div>
+            {/* Highlights */}
+            {[
+              'Expert in ETL/ELT, Medallion Architecture & Delta Lake',
+              'Cloud-native: Azure, AWS & Microsoft Fabric',
+              'Real-time streaming with Kafka, Kinesis & Event Hub',
+              'AI-ready pipelines with RAG, embeddings & LangChain',
+            ].map((h, i) => (
+              <motion.div
+                key={i}
+                className="flex items-start gap-3 mb-4 group"
+                initial={{ opacity: 0, x: -20 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.3 + i * 0.08 }}
+              >
+                <div className="w-2 h-2 bg-green mt-1.5 shrink-0 group-hover:bg-red transition-colors" />
+                <span className="font-mono text-sm text-white/70 group-hover:text-white transition-colors">{h}</span>
+              </motion.div>
+            ))}
+
+            {/* Stats grid */}
+            <div className="grid grid-cols-2 gap-px mt-10 border border-white/10">
+              {stats.map((s, i) => (
+                <motion.div
+                  key={i}
+                  className="p-6 bg-black border-white/5 hover:bg-white/[0.02] transition-colors group"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={inView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: 0.5 + i * 0.08 }}
+                  style={{ border: '1px solid rgba(255,255,255,0.06)' }}
+                >
+                  <div className="font-black text-3xl text-green group-hover:text-white transition-colors">{s.value}</div>
+                  <div className="font-mono text-xs text-white/30 uppercase tracking-wider mt-1">{s.label}</div>
+                </motion.div>
               ))}
             </div>
           </div>
 
           {/* Education + Certs */}
           <div className="flex flex-col gap-6">
-            {/* Education */}
-            <div className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary-500/15">
-                  <GraduationCap size={18} className="text-primary-400" />
+            {/* Education card */}
+            <motion.div
+              className="border border-white/10 bg-white/[0.02] p-6 hover:border-green transition-all duration-300 geo-shadow-green group"
+              style={{ '--tw-shadow': 'none' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3 }}
+              whileHover={{ x: 4, y: -4 }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="p-2 border border-green/30 text-green">
+                  <FiBook size={16} />
                 </div>
-                <h3 className="text-white font-semibold">Education</h3>
+                <span className="font-mono text-xs text-white/40 uppercase tracking-widest">Education</span>
               </div>
               {education.map(edu => (
                 <div key={edu.degree}>
-                  <p className="text-white font-medium">{edu.degree}</p>
-                  <p className="text-primary-400 text-sm mt-1">{edu.school}</p>
-                  <p className="text-slate-500 text-sm">{edu.location} · {edu.year}</p>
+                  <p className="font-bold text-white text-lg">{edu.degree}</p>
+                  <p className="font-mono text-green text-sm mt-1">{edu.school}</p>
+                  <p className="font-mono text-white/30 text-xs mt-1">{edu.location} · {edu.year}</p>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Certifications */}
-            <div className="p-6 rounded-2xl bg-slate-800/60 border border-slate-700">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-cyan-500/15">
-                  <Award size={18} className="text-cyan-400" />
+            <motion.div
+              className="border border-white/10 bg-white/[0.02] p-6 hover:border-red transition-all duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.45 }}
+              whileHover={{ x: 4, y: -4 }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="p-2 border border-red/30 text-red">
+                  <FiAward size={16} />
                 </div>
-                <h3 className="text-white font-semibold">Certifications</h3>
+                <span className="font-mono text-xs text-white/40 uppercase tracking-widest">Certifications</span>
               </div>
-              <div className="flex flex-col gap-4">
-                {certifications.map(group => (
-                  <div key={group.group}>
-                    <p className="text-slate-400 text-xs font-medium uppercase tracking-wider mb-2">{group.group}</p>
-                    <ul className="flex flex-col gap-1.5">
-                      {group.items.map(cert => (
-                        <li key={cert} className="flex items-start gap-2 text-sm text-slate-300">
-                          <span className="text-primary-400 mt-0.5 shrink-0">✓</span>
-                          {cert}
-                        </li>
-                      ))}
-                    </ul>
+              {certifications.map((group) => (
+                <div key={group.group} className="mb-5 last:mb-0">
+                  <p className="font-mono text-xs text-white/30 uppercase tracking-widest mb-3">{group.group}</p>
+                  <div className="flex flex-col gap-2">
+                    {group.items.map(cert => (
+                      <div key={cert} className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 bg-green mt-1.5 shrink-0" />
+                        <span className="font-mono text-xs text-white/60">{cert}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </div>
-    </section>
-  )
-}
-
-export function SectionHeader({ label, title, light = false }) {
-  return (
-    <div className="text-center">
-      <span className="text-primary-400 text-sm font-semibold uppercase tracking-widest">{label}</span>
-      <h2 className={`text-3xl md:text-4xl font-bold mt-2 ${light ? 'text-slate-900' : 'text-white'}`}>{title}</h2>
-      <div className="mt-4 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-primary-500 to-cyan-500" />
-    </div>
+    </SectionWrapper>
   )
 }

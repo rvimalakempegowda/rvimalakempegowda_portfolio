@@ -1,117 +1,124 @@
-import { Mail, MapPin, Send } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from './Icons'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { FiMail, FiMapPin, FiArrowRight } from 'react-icons/fi'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { SectionWrapper, SectionHeader } from './SectionWrapper'
 import { personal } from '../data/portfolio'
-import { SectionHeader } from './About'
 
 const links = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: personal.email,
-    href: `mailto:${personal.email}`,
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
-  },
-  {
-    icon: LinkedinIcon,
-    label: 'LinkedIn',
-    value: 'revanth-gowda-vimala-kempegowda',
-    href: personal.linkedin,
-    color: 'text-blue-400',
-    bg: 'bg-blue-500/10',
-  },
-  {
-    icon: GithubIcon,
-    label: 'GitHub',
-    value: 'rvimalakempegowda',
-    href: personal.github,
-    color: 'text-slate-300',
-    bg: 'bg-slate-500/10',
-  },
-  {
-    icon: MapPin,
-    label: 'Location',
-    value: personal.location,
-    href: null,
-    color: 'text-green-400',
-    bg: 'bg-green-500/10',
-  },
+  { Icon: FiMail,    label: 'Email',    value: personal.email,    href: `mailto:${personal.email}`,      color: 'green' },
+  { Icon: FaLinkedin,label: 'LinkedIn', value: 'revanth-gowda-vimala-kempegowda', href: personal.linkedin, color: 'green' },
+  { Icon: FaGithub,  label: 'GitHub',   value: 'rvimalakempegowda',               href: personal.github,   color: 'green' },
+  { Icon: FiMapPin,  label: 'Location', value: personal.location,  href: null,                            color: 'red' },
 ]
 
 export default function Contact() {
-  return (
-    <section id="contact" className="bg-slate-950 section-padding">
-      <div className="max-w-4xl mx-auto">
-        <SectionHeader label="Get In Touch" title="Contact Me" />
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
 
-        <div className="mt-12 grid md:grid-cols-2 gap-8 items-start">
+  return (
+    <SectionWrapper id="contact" className="py-24 px-6" style={{ background: '#080808' }}>
+      <div className="max-w-7xl mx-auto" ref={ref}>
+        <SectionHeader number="06." label="Contact" title="Get In Touch" />
+
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left — message */}
           <div>
-            <h3 className="text-xl font-semibold text-white mb-4">Let's work together</h3>
-            <p className="text-slate-400 leading-relaxed mb-6">
-              I'm open to new opportunities, collaborations, and conversations about data engineering, cloud infrastructure, and AI-driven analytics. Whether you have a project in mind or just want to connect — reach out!
-            </p>
+            <motion.p
+              className="font-mono text-sm text-white/50 leading-relaxed mb-10 max-w-md"
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.2 }}
+            >
+              Open to new opportunities, collaborations, and conversations about
+              data engineering, cloud infrastructure, and AI-driven analytics.
+              Whether you have a project or just want to connect — reach out!
+            </motion.p>
+
             <div className="flex flex-col gap-4">
-              {links.map(({ icon: Icon, label, value, href, color, bg }) => (
-                <div key={label} className="flex items-center gap-4 group">
-                  <div className={`p-2.5 rounded-xl ${bg} shrink-0`}>
-                    <Icon size={18} className={color} />
+              {links.map(({ Icon, label, value, href, color }, i) => (
+                <motion.div
+                  key={label}
+                  className="group flex items-center gap-4"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.3 + i * 0.08 }}
+                >
+                  <div className={`p-3 border ${color === 'green' ? 'border-green/30 text-green' : 'border-red/30 text-red'} shrink-0`}>
+                    <Icon size={16} />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-slate-500 text-xs uppercase tracking-wider">{label}</p>
+                    <p className="font-mono text-xs text-white/20 uppercase tracking-widest">{label}</p>
                     {href ? (
                       <a
                         href={href}
                         target={href.startsWith('http') ? '_blank' : undefined}
                         rel="noopener noreferrer"
-                        className={`${color} text-sm font-medium hover:underline truncate block`}
+                        className={`font-mono text-sm ${color === 'green' ? 'text-green' : 'text-red'} hover:underline truncate block`}
                       >
                         {value}
                       </a>
                     ) : (
-                      <span className="text-slate-300 text-sm">{value}</span>
+                      <span className="font-mono text-sm text-white/50">{value}</span>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
 
-          {/* Right — CTA card */}
-          <div className="p-8 rounded-2xl bg-gradient-to-br from-primary-900/50 to-slate-900 border border-primary-500/20 text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary-500/20 flex items-center justify-center">
-              <Send size={28} className="text-primary-400" />
+          {/* Right — CTA */}
+          <motion.div
+            className="border border-white/10 p-10 text-center hover:border-green transition-all duration-300"
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            whileHover={{ boxShadow: '8px 8px 0px #10B981' }}
+          >
+            <div className="w-16 h-16 border-2 border-green mx-auto mb-6 flex items-center justify-center">
+              <FiMail size={24} className="text-green" />
             </div>
-            <h4 className="text-white font-bold text-xl mb-3">Ready to connect?</h4>
-            <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-              Send me an email or connect on LinkedIn. I typically respond within 24 hours.
+            <h3 className="font-black text-2xl text-white mb-3">Ready to Connect?</h3>
+            <p className="font-mono text-xs text-white/30 mb-8 leading-relaxed">
+              I typically respond within 24 hours.
             </p>
-            <a
-              href={`mailto:${personal.email}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-semibold text-sm transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/30 hover:-translate-y-0.5"
-            >
-              <Mail size={16} />
-              Send Email
-            </a>
-            <div className="mt-4">
-              <a
+            <div className="flex flex-col gap-3">
+              <motion.a
+                href={`mailto:${personal.email}`}
+                className="flex items-center justify-center gap-2 font-mono text-sm bg-green text-black px-6 py-3 font-bold uppercase tracking-wider hover:bg-white transition-colors"
+                whileHover={{ x: 2, y: -2 }}
+              >
+                Send Email <FiArrowRight />
+              </motion.a>
+              <motion.a
                 href={personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-700 hover:border-blue-500 text-slate-300 hover:text-blue-400 font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
+                className="flex items-center justify-center gap-2 font-mono text-sm border border-white/20 text-white/60 px-6 py-3 uppercase tracking-wider hover:border-green hover:text-green transition-colors"
+                whileHover={{ x: 2, y: -2 }}
               >
-                <LinkedinIcon size={16} />
-                Connect on LinkedIn
-              </a>
+                <FaLinkedin /> Connect on LinkedIn
+              </motion.a>
             </div>
+          </motion.div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+          <span className="font-mono text-xs text-white/15">
+            © {new Date().getFullYear()} Revanth Gowda Vimala Kempegowda
+          </span>
+          <div className="flex items-center gap-6">
+            <a href={personal.github} target="_blank" rel="noopener noreferrer"
+               className="text-white/20 hover:text-green transition-colors text-lg"><FaGithub /></a>
+            <a href={personal.linkedin} target="_blank" rel="noopener noreferrer"
+               className="text-white/20 hover:text-green transition-colors text-lg"><FaLinkedin /></a>
+            <a href={`mailto:${personal.email}`}
+               className="text-white/20 hover:text-green transition-colors text-lg"><FiMail /></a>
           </div>
+          <span className="font-mono text-xs text-white/15 uppercase tracking-widest">Data Engineer</span>
         </div>
       </div>
-
-      {/* Footer */}
-      <div className="mt-20 pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
-        <p>© {new Date().getFullYear()} Revanth Gowda Vimala Kempegowda · Data Engineer</p>
-      </div>
-    </section>
+    </SectionWrapper>
   )
 }

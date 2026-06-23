@@ -1,63 +1,87 @@
-import { MapPin, Calendar } from 'lucide-react'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { FiMapPin, FiCalendar, FiArrowRight } from 'react-icons/fi'
+import { SectionWrapper, SectionHeader, Tag } from './SectionWrapper'
 import { experience } from '../data/portfolio'
-import { SectionHeader } from './About'
 
 export default function Experience() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+
   return (
-    <section id="experience" className="bg-slate-950 section-padding">
-      <div className="max-w-4xl mx-auto">
-        <SectionHeader label="Career" title="Work Experience" />
+    <SectionWrapper id="experience" className="bg-black py-24 px-6" style={{ background: '#080808' }}>
+      <div className="max-w-7xl mx-auto" ref={ref}>
+        <SectionHeader number="02." label="Career" title="Work Experience" />
 
-        <div className="mt-12 relative">
-          {/* Timeline line */}
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary-500 via-primary-500/40 to-transparent hidden md:block" />
+        <div className="relative">
+          {/* Vertical timeline line */}
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-green via-white/10 to-transparent hidden md:block" />
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-0">
             {experience.map((job, i) => (
-              <div key={i} className="md:pl-16 relative group">
-                {/* Timeline dot */}
-                <div className={`absolute left-4.5 top-6 w-3 h-3 rounded-full border-2 hidden md:block transition-colors duration-300 ${job.current ? 'bg-primary-500 border-primary-400 shadow-sm shadow-primary-500/50' : 'bg-slate-700 border-slate-600 group-hover:border-primary-500'}`} style={{ left: '18px' }} />
+              <motion.div
+                key={i}
+                className="md:pl-12 relative group"
+                initial={{ opacity: 0, x: -30 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: i * 0.15 }}
+              >
+                {/* Timeline node */}
+                <div className={`absolute left-[-5px] top-8 w-2.5 h-2.5 hidden md:block border-2 transition-colors duration-300 ${
+                  job.current ? 'bg-green border-green' : 'bg-black border-white/30 group-hover:border-green'
+                }`} />
 
-                <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-700/60 hover:border-primary-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/5 card-hover">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                {/* Card */}
+                <motion.div
+                  className={`mb-1 p-8 border-l-4 bg-white/[0.015] transition-all duration-300 ${
+                    job.current ? 'border-l-green' : 'border-l-white/10 hover:border-l-red'
+                  }`}
+                  whileHover={{ x: 4 }}
+                >
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-5">
                     <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-lg font-bold text-white">{job.role}</h3>
+                      <div className="flex items-center gap-3 mb-1">
+                        <h3 className="font-bold text-xl text-white">{job.role}</h3>
                         {job.current && (
-                          <span className="px-2 py-0.5 text-xs rounded-full bg-green-500/15 border border-green-500/30 text-green-400 font-medium">
-                            Current
+                          <span className="font-mono text-xs border border-green text-green px-2 py-0.5 animate-border-shift">
+                            CURRENT
                           </span>
                         )}
                       </div>
-                      <p className="text-primary-400 font-semibold">{job.company}</p>
+                      <p className={`font-mono font-bold text-base ${job.current ? 'text-green' : 'text-red'}`}>
+                        {job.company}
+                      </p>
                     </div>
-                    <div className="flex flex-col sm:items-end gap-1 shrink-0">
-                      <div className="flex items-center gap-1.5 text-slate-500 text-sm">
-                        <Calendar size={13} />
-                        <span>{job.period}</span>
+                    <div className="flex flex-col gap-1.5 lg:items-end shrink-0">
+                      <div className="flex items-center gap-2 font-mono text-xs text-white/30">
+                        <FiCalendar size={11} /> {job.period}
                       </div>
-                      <div className="flex items-center gap-1.5 text-slate-500 text-sm">
-                        <MapPin size={13} />
-                        <span>{job.location}</span>
+                      <div className="flex items-center gap-2 font-mono text-xs text-white/30">
+                        <FiMapPin size={11} /> {job.location}
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-slate-400 text-sm leading-relaxed mb-4">{job.description}</p>
+                  <p className="font-mono text-sm text-white/50 leading-relaxed mb-5">{job.description}</p>
 
                   <div className="flex flex-wrap gap-2">
                     {job.tags.map(tag => (
-                      <span key={tag} className="px-2.5 py-1 text-xs rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:border-primary-500/50 hover:text-primary-300 transition-colors">
-                        {tag}
-                      </span>
+                      <Tag key={tag} color={job.current ? 'green' : 'red'}>{tag}</Tag>
                     ))}
                   </div>
-                </div>
-              </div>
+                </motion.div>
+
+                {/* Connector */}
+                {i < experience.length - 1 && (
+                  <div className="hidden md:flex items-center gap-2 pl-0 py-3 ml-[-1px]">
+                    <div className="w-px h-8 bg-white/5" />
+                  </div>
+                )}
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   )
 }

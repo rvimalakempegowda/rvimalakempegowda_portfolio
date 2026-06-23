@@ -17,7 +17,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const fn = () => {
-      setScrolled(window.scrollY > 20)
+      setScrolled(window.scrollY > 30)
       const total = document.documentElement.scrollHeight - window.innerHeight
       setProgress(total > 0 ? (window.scrollY / total) * 100 : 0)
     }
@@ -39,17 +39,17 @@ export default function Navbar() {
     <>
       <div className="progress-bar" style={{ width: `${progress}%` }} />
       <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-[#0c0c0c]/95 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
+        scrolled ? 'bg-ink/96 backdrop-blur-md border-b border-white/4' : 'bg-transparent'
       }`}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a href="#hero" className="font-display text-xl text-cream font-semibold tracking-tight">
+          <a href="#hero" className="font-display text-lg text-cream font-semibold tracking-tight">
             RG<span className="text-gold">.</span>
           </a>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             {links.map(l => (
               <a key={l.href} href={l.href}
-                 className={`text-sm font-medium tracking-wide transition-colors relative pb-0.5 ${
+                 className={`text-xs font-medium tracking-widest uppercase transition-colors relative pb-0.5 ${
                    activeId === l.id ? 'text-cream' : 'text-cream-muted hover:text-cream'
                  }`}>
                 {l.label}
@@ -61,7 +61,7 @@ export default function Navbar() {
           </nav>
 
           <a href="mailto:vkrevanthgowda@gmail.com"
-             className="hidden md:inline-flex items-center gap-2 text-sm font-medium px-4 py-2 border border-gold/40 text-gold hover:bg-gold hover:text-black transition-all duration-200">
+             className="hidden md:inline-flex items-center text-xs font-semibold tracking-widest uppercase px-4 py-2 border border-gold/35 text-gold hover:bg-gold hover:text-ink transition-all duration-200">
             Hire me
           </a>
 
@@ -75,17 +75,17 @@ export default function Navbar() {
         </div>
 
         {open && (
-          <div className="md:hidden bg-surface border-t border-white/5 px-6 py-5 flex flex-col gap-4">
+          <div className="md:hidden bg-surface border-t border-white/4 px-6 py-5 flex flex-col gap-4">
             {links.map(l => (
               <a key={l.href} href={l.href} onClick={() => setOpen(false)}
-                 className={`text-sm font-medium py-1 transition-colors ${
+                 className={`text-xs font-medium tracking-widest uppercase py-1 transition-colors ${
                    activeId === l.id ? 'text-gold' : 'text-cream-muted hover:text-cream'
                  }`}>
                 {l.label}
               </a>
             ))}
             <a href="mailto:vkrevanthgowda@gmail.com"
-               className="text-sm font-medium border border-gold/40 text-gold px-4 py-2 text-center mt-2">
+               className="text-xs font-semibold tracking-widest uppercase border border-gold/35 text-gold px-4 py-2.5 text-center mt-1 hover:bg-gold hover:text-ink transition-all">
               Hire me
             </a>
           </div>

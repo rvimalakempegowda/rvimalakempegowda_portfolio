@@ -62,9 +62,9 @@ export default function Hero() {
           {/* Photo */}
           <div className="shrink-0">
             <div className="relative">
-              <div className="w-52 h-52 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-2xl overflow-hidden bg-neutral-100 shadow-lg">
+              <div className="w-56 h-72 md:w-64 md:h-80 lg:w-72 lg:h-96 rounded-2xl overflow-hidden bg-neutral-100 shadow-lg">
                 {photo
-                  ? <img src={photo} alt="Revanth Gowda Vimala Kempegowda" className="w-full h-full object-cover object-top" />
+                  ? <img src={photo} alt="Revanth Gowda Vimala Kempegowda" className="w-full h-full object-cover object-center" />
                   : <div className="w-full h-full flex items-center justify-center bg-accent-light">
                       <span className="text-5xl font-bold text-accent">RG</span>
                     </div>

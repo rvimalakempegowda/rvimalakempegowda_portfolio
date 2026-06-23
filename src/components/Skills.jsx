@@ -1,63 +1,32 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { SectionWrapper, SectionHeader } from './SectionWrapper'
 import { skills } from '../data/portfolio'
+import { SectionLabel } from './About'
 
 export default function Skills() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-
   return (
-    <SectionWrapper id="skills" className="py-24 px-6" style={{ background: '#080808' }}>
-      <div className="max-w-7xl mx-auto" ref={ref}>
-        <SectionHeader number="04." label="Expertise" title="Skills & Tech" />
+    <section id="skills" className="py-24 bg-white px-6">
+      <div className="max-w-5xl mx-auto">
+        <SectionLabel>Expertise</SectionLabel>
+        <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-12">Skills & Technologies</h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-white/5">
-          {skills.map((group, i) => (
-            <motion.div
-              key={group.category}
-              className="bg-black p-6 hover:bg-white/[0.03] transition-colors group border-t-2 border-t-transparent hover:border-t-green"
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.05 }}
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-green text-lg font-mono leading-none">{group.icon}</span>
-                <h3 className="font-mono font-bold text-xs text-white/50 uppercase tracking-wider group-hover:text-white transition-colors">
-                  {group.category}
-                </h3>
-              </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {skills.map(group => (
+            <div key={group.category}
+                 className="bg-neutral-50 rounded-2xl border border-neutral-200 p-5 hover:border-accent/30 hover:shadow-sm transition-all duration-200">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-3">
+                {group.category}
+              </h3>
               <div className="flex flex-wrap gap-1.5">
                 {group.items.map(item => (
-                  <motion.span
-                    key={item}
-                    className="font-mono text-xs text-white/40 border border-white/8 px-2 py-1 hover:border-green hover:text-green transition-all"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <span key={item}
+                        className="text-xs font-medium text-neutral-600 bg-white border border-neutral-200 px-2.5 py-1 rounded-full hover:border-accent hover:text-accent transition-colors">
                     {item}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-
-        {/* Marquee */}
-        <div className="mt-16 overflow-hidden border-y border-white/5 py-4">
-          <motion.div
-            className="flex gap-8 whitespace-nowrap"
-            animate={{ x: [0, -2000] }}
-            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          >
-            {['Python', 'PySpark', 'Databricks', 'Snowflake', 'Azure', 'AWS', 'Airflow', 'dbt', 'Kafka', 'Delta Lake', 'SQL', 'Spark', 'LangChain', 'Power BI', 'Tableau',
-              'Python', 'PySpark', 'Databricks', 'Snowflake', 'Azure', 'AWS', 'Airflow', 'dbt', 'Kafka', 'Delta Lake', 'SQL', 'Spark', 'LangChain', 'Power BI', 'Tableau'].map((t, i) => (
-              <span key={i} className="font-mono text-sm text-white/15 uppercase tracking-widest">
-                {t} <span className="text-green mx-4">·</span>
-              </span>
-            ))}
-          </motion.div>
-        </div>
       </div>
-    </SectionWrapper>
+    </section>
   )
 }

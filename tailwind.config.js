@@ -4,18 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        gold:    { DEFAULT: '#c9a84c', light: '#e2c27d', dark: '#a07830', muted: 'rgba(201,168,76,0.08)' },
-        surface: { DEFAULT: '#0f0f0f', 2: '#141414', 3: '#191919', 4: '#1e1e1e' },
-        ink:     { DEFAULT: '#080808', deep: '#040404' },
-        cream:   { DEFAULT: '#ede8df', muted: '#7d756c', faint: '#3a3530' },
+        navy:  { DEFAULT: '#0f172a', light: '#1e293b', 50: '#f8fafc' },
+        blue:  { DEFAULT: '#2563eb', light: '#3b82f6', dark: '#1d4ed8' },
+        gray:  { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 400: '#9ca3af', 600: '#4b5563', 800: '#1f2937' },
       },
       fontFamily: {
         sans:    ['Inter', 'system-ui', 'sans-serif'],
         display: ['Playfair Display', 'Georgia', 'serif'],
       },
-      letterSpacing: {
-        widest2: '0.25em',
-        widest3: '0.35em',
+      boxShadow: {
+        card: '0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)',
+        'card-hover': '0 4px 12px rgba(0,0,0,0.1), 0 16px 40px rgba(0,0,0,0.08)',
       },
     },
   },

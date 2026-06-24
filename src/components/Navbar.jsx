@@ -30,7 +30,7 @@ export default function Navbar() {
       <header className={`fixed top-0 inset-x-0 z-50 bg-white transition-shadow duration-300 ${scrolled ? 'shadow-sm' : ''}`}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between border-b border-gray-100">
           <a href="#hero" className="text-navy font-bold text-lg tracking-tight">
-            Revanth<span className="text-blue">.</span>
+            RGVK
           </a>
 
           <nav className="hidden md:flex items-center gap-8">

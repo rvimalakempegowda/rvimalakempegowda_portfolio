@@ -1,16 +1,74 @@
-# React + Vite
+# Revanth Gowda Vimala Kempegowda — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Personal portfolio website for Revanth Gowda, Senior Data Engineer at Vanguard.
 
-Currently, two official plugins are available:
+**Live site:** https://rvimalakempegowda.github.io/rvimalakempegowda_portfolio/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** + **Vite 5**
+- **Tailwind CSS 3** — utility-first styling
+- **Framer Motion** — scroll animations
+- **Formspree** — contact form (no backend)
+- **GitHub Actions** — CI/CD deploy to GitHub Pages
 
-## Expanding the Oxlint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```
+src/
+├── components/
+│   ├── Navbar.jsx          # Fixed top nav with scroll progress bar
+│   ├── Hero.jsx            # Landing section with photo
+│   ├── About.jsx           # Bio, stats, education, certifications
+│   ├── Experience.jsx      # Work history cards
+│   ├── Projects.jsx        # Project showcase grid
+│   ├── Skills.jsx          # Skills grouped by category
+│   ├── Publications.jsx    # IEEE publication
+│   ├── Contact.jsx         # Contact form + info
+│   └── ScrollToTop.jsx     # Scroll-to-top button
+├── data/
+│   └── portfolio.js        # All content — edit here to update the site
+├── hooks/
+│   └── useScrollReveal.js  # Intersection observer for reveal animations
+└── assets/
+    └── Revanth.JPG         # Profile photo
+```
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Open http://localhost:5173/rvimalakempegowda_portfolio/
+
+## Updating Content
+
+All text content lives in `src/data/portfolio.js` — edit that file to update bio, experience, projects, skills, certifications, or publications. No need to touch any component files for content changes.
+
+## Deployment
+
+Pushes to `main` automatically trigger the GitHub Actions workflow (`.github/workflows/deploy.yml`), which:
+1. Runs `npm ci && npm run build`
+2. Deploys the `dist/` output to the `gh-pages` branch via `peaceiris/actions-gh-pages`
+
+GitHub Pages is configured to serve from the `gh-pages` branch.
+
+## Sections
+
+| Section | Description |
+|---------|-------------|
+| Hero | Name, tagline, photo, social links |
+| About | Bio, stats, education (4.0 GPA, E.C. Hall Scholar), certifications |
+| Experience | Vanguard · Cognizant · University of Central Oklahoma |
+| Projects | 5 data engineering projects |
+| Skills | 10 skill categories across cloud, data, AI/GenAI |
+| Publications | IEEE ICCCS 2025 paper |
+| Contact | Formspree-powered contact form |
+
+---
+
+Built with React + Vite. Deployed on GitHub Pages.

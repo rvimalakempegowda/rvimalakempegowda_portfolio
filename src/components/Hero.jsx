@@ -1,5 +1,5 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
-import { HiOutlineMail, HiOutlineLocationMarker } from 'react-icons/hi'
+import { HiOutlineMail, HiOutlineLocationMarker, HiOutlineDownload } from 'react-icons/hi'
 import { HiArrowLongRight } from 'react-icons/hi2'
 import { personal } from '../data/portfolio'
 
@@ -39,6 +39,12 @@ export default function Hero() {
                  className="group inline-flex items-center gap-2 bg-blue text-white font-semibold text-sm px-6 py-3 rounded hover:bg-blue-dark transition-colors">
                 Get in touch
                 <HiArrowLongRight className="group-hover:translate-x-0.5 transition-transform" />
+              </a>
+              <a href="/rvimalakempegowda_portfolio/Revanth_Gowda_Resume.pdf"
+                 download="Revanth_Gowda_Resume.pdf"
+                 className="inline-flex items-center gap-2 text-sm font-semibold px-6 py-3 border border-gray-200 text-gray-600 rounded hover:border-blue hover:text-blue transition-colors">
+                <HiOutlineDownload size={16} />
+                Resume
               </a>
               <a href="#projects"
                  className="inline-flex items-center text-sm font-semibold px-6 py-3 border border-gray-200 text-gray-600 rounded hover:border-blue hover:text-blue transition-colors">

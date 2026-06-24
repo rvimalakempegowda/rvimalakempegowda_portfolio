@@ -4,7 +4,7 @@ export const personal = {
   initials: 'RG',
   title: 'Data Engineer',
   location: 'Frisco, Texas, USA',
-  email: 'vkrevanthgowda@gmail.com',
+  email: 'rvimalakempegowda@gmail.com',
   linkedin: 'https://www.linkedin.com/in/revanth-gowda-vimala-kempegowda',
   github: 'https://github.com/rvimalakempegowda/',
   bio: 'I am a Data Engineer based in Frisco, Texas, with a Master\'s degree in Computer Science from the University of Central Oklahoma. I have experience building scalable ETL/ELT pipelines, cloud-based data platforms, real-time streaming workflows, and analytics-ready datasets. My background spans financial services, cloud data engineering, data analytics, data quality, governance, and AI-ready data workflows. I enjoy designing reliable data solutions that transform raw data into meaningful business insights.',

@@ -49,7 +49,16 @@ export default function About() {
                 <div key={e.degree}>
                   <p className="font-semibold text-navy text-sm">{e.degree}</p>
                   <p className="text-blue text-sm mt-1">{e.school}</p>
-                  <p className="text-gray-400 text-xs mt-0.5">{e.location} · {e.year}</p>
+                  <p className="text-gray-400 text-xs mt-0.5">{e.location} · {e.year}{e.gpa ? ` · GPA ${e.gpa}` : ''}</p>
+                  {e.honors && (
+                    <ul className="mt-2 space-y-1">
+                      {e.honors.map(h => (
+                        <li key={h} className="flex items-start gap-1.5 text-xs text-gray-600">
+                          <span className="text-yellow-500 mt-0.5 shrink-0">★</span>{h}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               ))}
             </div>

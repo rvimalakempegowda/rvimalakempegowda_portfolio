@@ -99,6 +99,8 @@ export const education = [
     school: 'University of Central Oklahoma',
     year: '2024',
     location: 'Edmond, Oklahoma',
+    gpa: '4.0',
+    honors: ['E.C. Hall Scholar — College of Mathematics and Science, Fall 2024', 'Nominated for E.C. Hall Outstanding Graduate Student Award, UCO'],
   },
 ]
 

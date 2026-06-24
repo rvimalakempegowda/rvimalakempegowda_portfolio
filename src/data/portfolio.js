@@ -7,7 +7,7 @@ export const personal = {
   email: 'rvimalakempegowda@gmail.com',
   linkedin: 'https://www.linkedin.com/in/revanth-gowda-vimala-kempegowda',
   github: 'https://github.com/rvimalakempegowda/',
-  bio: 'Senior Data Engineer at Vanguard, building production-grade data pipelines and cloud platforms that power financial analytics at scale. I specialize in ETL/ELT engineering, real-time streaming, medallion architecture, and AI-ready data workflows across Azure and AWS. IEEE-published researcher, Microsoft-certified (Azure, Power BI), and a 4.0 GPA graduate of the University of Central Oklahoma — where I was named an E.C. Hall Scholar. I turn complex, raw data into reliable, business-ready infrastructure.',
+  bio: 'Data Engineer at Vanguard, building production-grade data pipelines and cloud platforms that power financial analytics at scale. I specialize in ETL/ELT engineering, real-time streaming, medallion architecture, and AI-ready data workflows across Azure and AWS. IEEE-published researcher, Microsoft-certified (Azure, Power BI), and a 4.0 GPA graduate of the University of Central Oklahoma — where I was named an E.C. Hall Scholar. I turn complex, raw data into reliable, business-ready infrastructure.',
 }
 
 export const skills = [

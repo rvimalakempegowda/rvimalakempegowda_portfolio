@@ -24,7 +24,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-gray-600 text-lg leading-relaxed mb-6 max-w-lg">
-              Senior Data Engineer at Vanguard — building production pipelines,
+              Data Engineer at Vanguard — building production pipelines,
               cloud platforms, and real-time streaming workflows that turn raw
               financial data into reliable business insights.
             </p>

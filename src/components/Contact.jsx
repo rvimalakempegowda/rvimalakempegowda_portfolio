@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { HiOutlineMail, HiOutlineLocationMarker } from 'react-icons/hi'
-import { HiArrowLongRight } from 'react-icons/hi2'
+import { HiArrowLongRight, HiCheckCircle } from 'react-icons/hi2'
 import { personal } from '../data/portfolio'
 import { SectionLabel } from './About'
 import { useScrollReveal } from '../hooks/useScrollReveal'
@@ -8,7 +9,34 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 export default function Contact() {
   const heading  = useScrollReveal(0)
   const linksRef = useScrollReveal(100)
-  const cta      = useScrollReveal(150)
+  const formRef  = useScrollReveal(150)
+
+  const [fields, setFields]   = useState({ name: '', email: '', message: '' })
+  const [status, setStatus]   = useState('idle') // idle | sending | sent | error
+
+  function handleChange(e) {
+    setFields(f => ({ ...f, [e.target.name]: e.target.value }))
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setStatus('sending')
+    try {
+      const res = await fetch('https://formspree.io/f/xzzblknd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(fields),
+      })
+      if (res.ok) {
+        setStatus('sent')
+        setFields({ name: '', email: '', message: '' })
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+  }
 
   return (
     <section id="contact" className="py-24 bg-white px-6">
@@ -50,27 +78,58 @@ export default function Contact() {
             ))}
           </div>
 
-          {/* CTA card */}
-          <div ref={cta} className="reveal bg-blue rounded-xl p-8 flex flex-col justify-between text-white">
-            <div>
-              <h3 className="text-2xl font-bold mb-3">Ready to build something great?</h3>
-              <p className="text-blue-100 text-sm leading-relaxed">
-                Whether you need scalable pipelines, cloud infrastructure, or
-                AI-driven analytics — let's make it happen.
-              </p>
-            </div>
-            <div className="mt-8 space-y-3">
-              <a href={`mailto:${personal.email}`}
-                 className="group flex items-center justify-between w-full bg-white text-blue font-bold text-sm px-6 py-4 rounded-lg hover:bg-blue-50 transition-colors">
-                Send an Email
-                <HiArrowLongRight className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a href={personal.linkedin} target="_blank" rel="noopener noreferrer"
-                 className="flex items-center justify-between w-full border border-white/30 text-white text-sm px-6 py-4 rounded-lg hover:bg-white/10 transition-all">
-                Connect on LinkedIn
-                <HiArrowLongRight size={16} />
-              </a>
-            </div>
+          {/* Contact form */}
+          <div ref={formRef} className="reveal bg-gray-50 rounded-xl p-8 border border-gray-100">
+            {status === 'sent' ? (
+              <div className="h-full flex flex-col items-center justify-center text-center gap-4 py-8">
+                <HiCheckCircle className="text-green-500 text-5xl" />
+                <h3 className="text-xl font-bold text-navy">Message sent!</h3>
+                <p className="text-gray-500 text-sm">Thanks for reaching out. I'll get back to you within a day.</p>
+                <button onClick={() => setStatus('idle')}
+                        className="text-sm text-blue font-semibold hover:underline mt-2">
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Name</label>
+                  <input
+                    type="text" name="name" required
+                    value={fields.name} onChange={handleChange}
+                    placeholder="Your name"
+                    className="w-full text-sm text-navy bg-white border border-gray-200 rounded-lg px-4 py-3 outline-none focus:border-blue transition-colors placeholder:text-gray-300"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Email</label>
+                  <input
+                    type="email" name="email" required
+                    value={fields.email} onChange={handleChange}
+                    placeholder="your@email.com"
+                    className="w-full text-sm text-navy bg-white border border-gray-200 rounded-lg px-4 py-3 outline-none focus:border-blue transition-colors placeholder:text-gray-300"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Message</label>
+                  <textarea
+                    name="message" required rows={4}
+                    value={fields.message} onChange={handleChange}
+                    placeholder="What's on your mind?"
+                    className="w-full text-sm text-navy bg-white border border-gray-200 rounded-lg px-4 py-3 outline-none focus:border-blue transition-colors placeholder:text-gray-300 resize-none"
+                  />
+                </div>
+                {status === 'error' && (
+                  <p className="text-xs text-red-500">Something went wrong. Try emailing directly at {personal.email}</p>
+                )}
+                <button
+                  type="submit" disabled={status === 'sending'}
+                  className="group w-full flex items-center justify-between bg-blue text-white font-semibold text-sm px-6 py-3.5 rounded-lg hover:bg-blue-dark transition-colors disabled:opacity-60">
+                  {status === 'sending' ? 'Sending…' : 'Send Message'}
+                  <HiArrowLongRight className="group-hover:translate-x-0.5 transition-transform" />
+                </button>
+              </form>
+            )}
           </div>
         </div>
 

@@ -24,9 +24,9 @@ export default function Hero() {
             </h1>
 
             <p className="text-gray-600 text-lg leading-relaxed mb-6 max-w-lg">
-              I build scalable data pipelines, cloud platforms, and real-time streaming
-              workflows that turn raw data into business insights — at companies like
-              Vanguard, Cognizant, and UCO.
+              Senior Data Engineer at Vanguard — building production pipelines,
+              cloud platforms, and real-time streaming workflows that turn raw
+              financial data into reliable business insights.
             </p>
 
             <div className="flex items-center gap-2 text-gray-400 text-sm mb-8">

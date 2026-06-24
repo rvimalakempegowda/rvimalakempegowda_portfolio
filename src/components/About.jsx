@@ -26,8 +26,8 @@ export default function About() {
 
             <div ref={stats} className="reveal grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
-                { n: '3+', label: 'Years Experience' },
-                { n: '4',  label: 'Certifications' },
+                { n: '4+', label: 'Years Experience' },
+                { n: '8',  label: 'Certifications' },
                 { n: '5',  label: 'Projects' },
                 { n: '1',  label: 'IEEE Paper' },
               ].map(s => (

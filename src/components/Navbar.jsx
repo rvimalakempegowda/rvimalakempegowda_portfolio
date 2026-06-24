@@ -42,7 +42,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <a href="mailto:vkrevanthgowda@gmail.com"
+          <a href="#contact"
              className="hidden md:inline-flex items-center text-sm font-semibold px-5 py-2 bg-blue text-white rounded hover:bg-blue-dark transition-colors">
             Hire me
           </a>
@@ -64,7 +64,7 @@ export default function Navbar() {
                 {l.label}
               </a>
             ))}
-            <a href="mailto:vkrevanthgowda@gmail.com"
+            <a href="#contact" onClick={() => setOpen(false)}
                className="text-sm font-semibold text-center bg-blue text-white rounded px-4 py-2 mt-1">
               Hire me
             </a>

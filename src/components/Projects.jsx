@@ -1,4 +1,4 @@
-import { FiExternalLink } from 'react-icons/fi'
+import { FiExternalLink, FiLock } from 'react-icons/fi'
 import { projects } from '../data/portfolio'
 import { SectionLabel } from './About'
 import { useScrollReveal } from '../hooks/useScrollReveal'
@@ -12,11 +12,15 @@ function ProjectCard({ p, i }) {
         <span className="text-3xl font-bold text-gray-100 group-hover:text-blue/20 transition-colors leading-none select-none">
           {String(i + 1).padStart(2, '0')}
         </span>
-        {p.link && (
+        {p.link && p.link !== 'private' ? (
           <a href={p.link} target="_blank" rel="noopener noreferrer"
              className="text-gray-300 hover:text-blue transition-colors">
             <FiExternalLink size={16} />
           </a>
+        ) : (
+          <span className="flex items-center gap-1 text-xs text-gray-300 font-medium">
+            <FiLock size={11} /> Private
+          </span>
         )}
       </div>
       <h3 className="text-base font-bold text-navy mb-2 group-hover:text-blue transition-colors leading-snug">{p.title}</h3>
